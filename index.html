@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust Travel Agency | Full Experience</title>
+    <style>
+        /* --- 1. BASE STYLES & RESET --- */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: #f8f9fa; 
+            color: #333; 
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 40px; color: #2c3e50; }
+
+        /* --- 2. NAVIGATION BAR --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo { font-size: 2rem; font-weight: 800; color: #ff6b6b; letter-spacing: 1px; }
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links li a { font-weight: 600; color: #2c3e50; transition: color 0.3s; }
+        .nav-links li a:hover { color: #ff6b6b; }
+        .btn-login { border: 2px solid #ff6b6b; padding: 8px 20px; border-radius: 25px; color: #ff6b6b !important; }
+        .btn-login:hover { background: #ff6b6b; color: white !important; }
+
+        /* --- 3. HERO SECTION --- */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            color: white;
+            padding: 0 20px;
+            margin-top: 0;
+        }
+        .hero h1 { font-size: 4rem; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.3rem; margin-bottom: 40px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        
+        .booking-form {
+            background: white; padding: 30px; border-radius: 12px; display: flex; gap: 20px; flex-wrap: wrap; 
+            justify-content: center; align-items: flex-end; box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            width: 100%; max-width: 1000px;
+        }
+        .form-group { display: flex; flex-direction: column; text-align: left; flex: 1; min-width: 180px; }
+        .form-group label { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: #2c3e50; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; width: 100%; outline: none; }
+        .form-group input:focus { border-color: #ff6b6b; }
+        .btn-submit { 
+            background: #ff6b6b; color: white; border: none; padding: 14px 30px; font-size: 1.1rem; 
+            border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; height: 48px; min-width: 150px;
+        }
+        .btn-submit:hover { background: #ee5253; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(238, 82, 83, 0.4); }
+
+        /* --- 4. SERVICES SECTION --- */
+        .services { padding: 100px 0; background: white; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center; }
+        .service-card { padding: 30px; border-radius: 10px; background: #f8f9fa; transition: 0.3s; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .service-icon { font-size: 3rem; margin-bottom: 20px; }
+        .service-card h3 { margin-bottom: 15px; color: #2c3e50; }
+        .service-card p { color: #666; font-size: 0.95rem; }
+
+        /* --- 5. FEATURED DESTINATIONS --- */
+        .destinations { padding: 100px 0; background: #f8f9fa; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: 0.3s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .card img { width: 100%; height: 250px; object-fit: cover; }
+        .card-content { padding: 25px; }
+        .card-content h3 { font-size: 1.6rem; margin-bottom: 10px; color: #2c3e50; }
+        .card-content p { color: #666; margin-bottom: 20px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 15px; }
+        .price { font-size: 1.3rem; font-weight: bold; color: #ff6b6b; }
+        .btn-book { background: none; border: 2px solid #2c3e50; color: #2c3e50; padding: 8px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-book:hover { background: #2c3e50; color: white; }
+
+        /* --- 6. ABOUT US / PROMO SECTION --- */
+        .about { padding: 100px 0; background: white; }
+        .about-container { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .about-text { flex: 1; min-width: 300px; }
+        .about-text h2 { font-size: 2.5rem; color: #2c3e50; margin-bottom: 20px; }
+        .about-text p { color: #666; margin-bottom: 20px; font-size: 1.1rem; }
+        .about-image { flex: 1; min-width: 300px; }
+        .about-image img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        /* --- 7. TESTIMONIALS --- */
+        .testimonials { padding: 100px 0; background: #2c3e50; color: white; }
+        .testimonials .section-title { color: white; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .test-card { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 10px; backdrop-filter: blur(5px); }
+        .stars { color: #f1c40f; margin-bottom: 15px; font-size: 1.2rem; }
+        .test-card p { font-style: italic; margin-bottom: 20px; }
+        .author { font-weight: bold; color: #ff6b6b; }
+
+        /* --- 8. NEWSLETTER --- */
+        .newsletter { padding: 80px 0; text-align: center; background: #ff6b6b; color: white; }
+        .newsletter h2 { font-size: 2rem; margin-bottom: 15px; }
+        .newsletter p { margin-bottom: 30px; font-size: 1.1rem; }
+        .news-form { display: flex; justify-content: center; gap: 10px; max-width: 600px; margin: 0 auto; }
+        .news-form input { padding: 15px; width: 100%; border: none; border-radius: 5px; font-size: 1rem; outline: none; }
+        .news-form button { padding: 15px 30px; border: none; background: #2c3e50; color: white; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+        .news-form button:hover { background: #1a252f; }
+
+        /* --- 9. FOOTER --- */
+        footer { background: #1a252f; color: #a4b0be; padding: 60px 0 20px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { color: white; margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-col p { margin-bottom: 15px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { transition: 0.3s; }
+        .footer-links a:hover { color: #ff6b6b; padding-left: 5px; }
+        .footer-bottom { text-align: center; border-top: 1px solid #2c3e50; padding-top: 20px; font-size: 0.9rem; }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 900px) {
+            .navbar { padding: 15px 20px; flex-direction: column; gap: 15px; position: static; }
+            .hero { height: auto; padding: 100px 20px; }
+            .hero h1 { font-size: 2.8rem; }
+            .booking-form { flex-direction: column; align-items: stretch; }
+            .btn-submit { height: auto; }
+            .about-container { flex-direction: column; }
+            .news-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Wanderlust.</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#" class="btn-login">Sign In</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>Explore The World With Us</h1>
+        <p>Book flights, exclusive hotels, and curated tour packages worldwide.</p>
+        
+        <form class="booking-form" action="/search-results" method="GET">
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" placeholder="Where do you want to go?" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Trip Type</label>
+                <select id="type" name="type">
+                    <option value="tour">Guided Tour</option>
+                    <option value="flight">Flight Only</option>
+                    <option value="hotel">Hotel Only</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Check-in Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="guests">Travelers</label>
+                <input type="number" id="guests" name="guests" min="1" value="2" required>
+            </div>
+            <button type="submit" class="btn-submit">Search Now</button>
+        </form>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">What We Offer</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✈️</div>
+                    <h3>Flight Booking</h3>
+                    <p>Find the best deals on domestic and international flights with top-tier airlines.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏨</div>
+                    <h3>Luxury Hotels</h3>
+                    <p>Access exclusive rates at premium hotels and resorts around the globe.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🗺️</div>
+                    <h3>Custom Tours</h3>
+                    <p>Enjoy curated travel itineraries crafted by local experts to fit your style.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Travel Insurance</h3>
+                    <p>Travel with peace of mind knowing you are fully covered for the unexpected.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <h2 class="section-title">Trending Destinations</h2>
+            <div class="card-grid">
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bali">
+                    <div class="card-content">
+                        <h3>Ubud, Bali</h3>
+                        <p>7 Days / 6 Nights exploring stunning beaches, historic temples, and lush jungles.</p>
+                        <div class="card-footer">
+                            <span class="price">$899 <small>/person</small></span>
+                            <button class="btn-book">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Paris">
+                    <div class="card-content">
+                        <h3>Paris, France</h3>
+                        <p>5 Days / 4 Nights. Includes VIP Eiffel Tower access and a sunset Seine river cruise.</p>
+                        <div class="card-footer">
+                            <span class="price">$1,250 <small>/person</small></span>
+                            <button class="btn-book">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Tokyo">
+                    <div class="card-content">
+                        <h3>Tokyo, Japan</h3>
+                        <p>10 Days / 9 Nights. Experience the perfect blend of modern tech and ancient traditions.</p>
+                        <div class="card-footer">
+                            <span class="price">$2,100 <small>/person</small></span>
+                            <button class="btn-book">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1504280655513-34e837941fb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Travelers">
+            </div>
+            <div class="about-text">
+                <h2>Why Choose Wanderlust?</h2>
+                <p>Since 2010, we've been helping travelers turn their dream vacations into reality. We believe that traveling is more than just checking boxes on a map; it's about authentic experiences and creating memories that last a lifetime.</p>
+                <p>Our dedicated team of travel experts works around the clock to secure the best rates, vet local guides, and provide 24/7 support while you are on the road. Let us handle the logistics so you can focus on the adventure.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Travelers Say</h2>
+            <div class="test-grid">
+                <div class="test-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"The Paris trip was flawlessly organized. From the boutique hotel to the private museum tours, everything exceeded our expectations!"</p>
+                    <span class="author">- Sarah Jenkins</span>
+                </div>
+                <div class="test-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Wanderlust took the stress out of planning our honeymoon to Bali. The itinerary was perfectly balanced with adventure and relaxation."</p>
+                    <span class="author">- Mike & Emily</span>
+                </div>
+                <div class="test-card">
+                    <div class="stars">★★★★☆</div>
+                    <p>"Great customer service. When our flight to Tokyo got delayed, they automatically rebooked our hotel transfer. Highly recommended."</p>
+                    <span class="author">- David Chen</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Get Exclusive Travel Deals</h2>
+            <p>Subscribe to our newsletter and receive a 10% discount on your first tour package!</p>
+            <form class="news-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Wanderlust.</h3>
+                    <p>Your ultimate gateway to experiencing the world's most breathtaking destinations.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                        <li><a href="#">Travel Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li>📞 +1 (800) 123-4567</li>
+                        <li>✉️ hello@wanderlust.com</li>
+                        <li>📍 123 Adventure Way, NY 10001</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wanderlust Travel Agency. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
